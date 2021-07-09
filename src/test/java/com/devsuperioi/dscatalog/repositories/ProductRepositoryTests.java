@@ -18,6 +18,7 @@ public class ProductRepositoryTests {
 	private long  existingId;
 	private long nonExistingId;
 	private long countTotalProducts;
+	
 	@Autowired
 	private ProductRepository repository;
 	
@@ -26,6 +27,18 @@ public class ProductRepositoryTests {
 		existingId = 1L;
 		nonExistingId = 50L;
 		countTotalProducts = 25L;
+	}
+	
+	@Test
+	public void findShouldReturnAOptionalNoNullWhenIdExist() {
+		Optional<Product> result = repository.findById(existingId);
+		Assertions.assertFalse(result.isEmpty());
+	}
+	
+	@Test
+	public void findShouldReturnAOptionalOfNullObjectWhenIdExist() {
+		Optional<Product> result = repository.findById(nonExistingId);
+		Assertions.assertTrue(result.isEmpty());
 	}
 	
 	@Test
